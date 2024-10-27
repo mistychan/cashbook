@@ -6,7 +6,7 @@
     </el-radio-group>
   </div>
   <div class="bill-container">
-    <div id="expenses"></div>
+    <div ref="myChart" class="expenses"></div>
     <el-table :data="tableData">
       <el-table-column
         v-for="(item, index) in columns"
@@ -32,13 +32,15 @@ const columns = reactive([
   { prop: 'money', label: '费用' },
   { prop: 'type', label: '类别' }
 ]);
-
+const myChart = ref(null);
 onMounted(() => {
   initEcharts();
 });
 
 function initEcharts() {
-  let chart = echarts.init(document.getElementById('expenses'));
+  const element = myChart.value;
+  // let chart = echarts.init(document.getElementById('expenses'));
+  let chart = echarts.init(element);
   let option = {
     tooltip: {
       trigger: 'item'
@@ -84,7 +86,7 @@ function initEcharts() {
   align-items: center;
   margin-top: 2rem;
 }
-#expenses {
+.expenses {
   margin: 0 auto;
   width: 500px;
   height: 500px;
